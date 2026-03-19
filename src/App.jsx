@@ -1,4 +1,3 @@
-import React from "react";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -7,13 +6,13 @@ import Projects from "./components/Projects";
 import Education from "./components/Education";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import CursorTracker from "./components/CursorTracker";
 
 export default function App() {
   return (
     <div className="noise bg-dark-950 min-h-screen text-white overflow-x-hidden">
-      {/* Scanline effect */}
       <div className="scanline" />
-
+      <CursorTracker />
       <Navbar />
       <Hero />
       <About />
@@ -25,3 +24,4 @@ export default function App() {
     </div>
   );
 }
+

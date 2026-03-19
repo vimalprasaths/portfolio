@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = ["Home", "About", "Skills", "Projects", "Education", "Contact"];
@@ -26,12 +26,11 @@ export default function Navbar() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "py-3 bg-dark-950/90 backdrop-blur-xl border-b border-neon-cyan/10" : "py-5"
+      className={`electric-navbar fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled ? "py-3 bg-dark-950/90 backdrop-blur-xl" : "py-5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
         <motion.div
           whileHover={{ scale: 1.05 }}
           className="font-display text-3xl cursor-pointer"
@@ -42,7 +41,6 @@ export default function Navbar() {
           <span className="text-neon-pink">.</span>
         </motion.div>
 
-        {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <motion.button
@@ -54,16 +52,13 @@ export default function Navbar() {
               }`}
             >
               {link}
-              <span
-                className={`absolute -bottom-1 left-0 h-px bg-neon-cyan transition-all duration-300 ${
-                  active === link ? "w-full" : "w-0 group-hover:w-full"
-                }`}
-              />
+              <span className={`absolute -bottom-1 left-0 h-px bg-neon-cyan transition-all duration-300 ${
+                active === link ? "w-full" : "w-0 group-hover:w-full"
+              }`} />
             </motion.button>
           ))}
         </div>
 
-        {/* CTA */}
         <div className="hidden md:flex items-center gap-3">
           <motion.a
             href="/resume.pdf"
@@ -84,27 +79,13 @@ export default function Navbar() {
           </motion.a>
         </div>
 
-        {/* Mobile hamburger */}
-        <button
-          className="md:hidden flex flex-col gap-1.5 z-50"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <motion.span
-            animate={menuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-            className="block w-7 h-0.5 bg-neon-cyan"
-          />
-          <motion.span
-            animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-            className="block w-7 h-0.5 bg-neon-cyan"
-          />
-          <motion.span
-            animate={menuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-            className="block w-7 h-0.5 bg-neon-cyan"
-          />
+        <button className="md:hidden flex flex-col gap-1.5 z-50" onClick={() => setMenuOpen(!menuOpen)}>
+          <motion.span animate={menuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }} className="block w-7 h-0.5 bg-neon-cyan" />
+          <motion.span animate={menuOpen ? { opacity: 0 } : { opacity: 1 }} className="block w-7 h-0.5 bg-neon-cyan" />
+          <motion.span animate={menuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }} className="block w-7 h-0.5 bg-neon-cyan" />
         </button>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -134,4 +115,4 @@ export default function Navbar() {
       </AnimatePresence>
     </motion.nav>
   );
-}
+}   

@@ -4,8 +4,8 @@ import { useInView } from "react-intersection-observer";
 
 const stats = [
   { value: "3+", label: "months" },
-  { value: "3+", label: "Projects Built" },
-  { value: "2", label: "Certifications" },
+  { value: "6+", label: "Projects Built" },
+  { value: "10+", label: "Certifications" },
   { value: "6+", label: "Tech Stacks" },
 ];
 

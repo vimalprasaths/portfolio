@@ -109,3 +109,70 @@ body {
 .clip-slash {
   clip-path: polygon(0 0, 92% 0, 100% 100%, 8% 100%);
 }
+/* Electric border keyframes */
+@keyframes electricPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes electricFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.electric-border {
+  position: relative;
+}
+
+.electric-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(
+    90deg,
+    #00f5ff, #ff006e, #39ff14, #bf5af2, #00f5ff
+  );
+  background-size: 300% 300%;
+  animation: electricFlow 3s ease infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.electric-border::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    rgba(0,245,255,0.15), rgba(255,0,110,0.15), rgba(57,255,20,0.15), rgba(0,245,255,0.15)
+  );
+  background-size: 300% 300%;
+  animation: electricFlow 3s ease infinite;
+  filter: blur(8px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.electric-navbar {
+  position: relative;
+}
+.electric-navbar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00f5ff, #ff006e, #39ff14, #00f5ff, transparent);
+  background-size: 300% 100%;
+  animation: electricFlow 2s linear infinite;
+  filter: blur(0.5px);
+  box-shadow: 0 0 8px rgba(0,245,255,0.6);
+}
