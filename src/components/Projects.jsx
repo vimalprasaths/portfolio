@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import ElectricBorder from "./ElectricBorder";
 
 const projects = [
   {
@@ -20,6 +21,8 @@ const projects = [
     ],
     color: "cyan",
     emoji: "✈️",
+    hexColor: "#00f5ff",
+    liveUrl: "https://tracvelhub.vercel.app/",
   },
   {
     id: 2,
@@ -38,6 +41,8 @@ const projects = [
     ],
     color: "pink",
     emoji: "🎥",
+    hexColor: "#ff006e",
+    liveUrl: null,
   },
   {
     id: 3,
@@ -56,6 +61,8 @@ const projects = [
     ],
     color: "green",
     emoji: "🚑",
+    hexColor: "#39ff14",
+    liveUrl: null,
   },
   {
     id: 4,
@@ -74,6 +81,8 @@ const projects = [
     ],
     color: "purple",
     emoji: "👗",
+    hexColor: "#bf5af2",
+    liveUrl: null,
   },
   {
     id: 5,
@@ -92,6 +101,8 @@ const projects = [
     ],
     color: "orange",
     emoji: "🏏",
+    hexColor: "#fb923c",
+    liveUrl: null,
   },
 ];
 
@@ -103,7 +114,7 @@ const colorMap = {
     bg: "bg-neon-cyan/5",
     tag: "bg-neon-cyan/10 text-neon-cyan border-neon-cyan/20",
     dot: "bg-neon-cyan",
-    glow: "shadow-[0_0_40px_rgba(0,245,255,0.1)]",
+    glow: "shadow-[0_0_40px_rgba(0,245,255,0.15)]",
     rgb: "0,245,255",
   },
   pink: {
@@ -113,7 +124,7 @@ const colorMap = {
     bg: "bg-neon-pink/5",
     tag: "bg-neon-pink/10 text-neon-pink border-neon-pink/20",
     dot: "bg-neon-pink",
-    glow: "shadow-[0_0_40px_rgba(255,0,110,0.1)]",
+    glow: "shadow-[0_0_40px_rgba(255,0,110,0.15)]",
     rgb: "255,0,110",
   },
   green: {
@@ -123,7 +134,7 @@ const colorMap = {
     bg: "bg-neon-green/5",
     tag: "bg-neon-green/10 text-neon-green border-neon-green/20",
     dot: "bg-neon-green",
-    glow: "shadow-[0_0_40px_rgba(57,255,20,0.1)]",
+    glow: "shadow-[0_0_40px_rgba(57,255,20,0.15)]",
     rgb: "57,255,20",
   },
   purple: {
@@ -133,7 +144,7 @@ const colorMap = {
     bg: "bg-purple-500/5",
     tag: "bg-purple-500/10 text-purple-400 border-purple-500/20",
     dot: "bg-purple-400",
-    glow: "shadow-[0_0_40px_rgba(167,139,250,0.1)]",
+    glow: "shadow-[0_0_40px_rgba(167,139,250,0.15)]",
     rgb: "167,139,250",
   },
   orange: {
@@ -143,7 +154,7 @@ const colorMap = {
     bg: "bg-orange-500/5",
     tag: "bg-orange-500/10 text-orange-400 border-orange-500/20",
     dot: "bg-orange-400",
-    glow: "shadow-[0_0_40px_rgba(251,146,60,0.1)]",
+    glow: "shadow-[0_0_40px_rgba(251,146,60,0.15)]",
     rgb: "251,146,60",
   },
 };
@@ -160,6 +171,7 @@ export default function Projects() {
       <div className="absolute bottom-0 right-0 w-1/2 h-px bg-gradient-to-l from-transparent via-neon-cyan/20 to-transparent" />
 
       <div className="relative max-w-7xl mx-auto px-6" ref={ref}>
+        {/* Section heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -185,24 +197,31 @@ export default function Projects() {
         </motion.div>
 
         {/* Project selector tabs */}
-        <div className="flex gap-3 mb-12 overflow-x-auto pb-3 scrollbar-hide">
+        <div className="flex gap-3 mb-12 overflow-x-auto pb-3">
           {projects.map((p, i) => {
             const pc = colorMap[p.color];
             return (
-              <motion.button
+              <ElectricBorder
                 key={p.id}
-                onClick={() => setActiveProject(i)}
-                whileHover={{ y: -2 }}
-                className={`flex-shrink-0 flex items-center gap-3 px-5 py-3 rounded-lg border font-mono text-sm transition-all duration-300 ${
-                  activeProject === i
-                    ? `${pc.activeBorder} ${pc.bg} ${pc.accent} ${pc.glow}`
-                    : "border-slate-700/50 text-slate-500 hover:border-slate-600"
-                }`}
+                color={p.hexColor}
+                speed={1.5}
+                chaos={0.08}
+                borderRadius={8}
               >
-                <span className="text-lg">{p.emoji}</span>
-                <span className="hidden lg:inline">{p.type}</span>
-                <span className="text-xs opacity-60">{p.number}</span>
-              </motion.button>
+                <motion.button
+                  onClick={() => setActiveProject(i)}
+                  whileHover={{ y: -2 }}
+                  className={`flex items-center gap-3 px-5 py-3 font-mono text-sm transition-all duration-300 ${
+                    activeProject === i
+                      ? `${pc.bg} ${pc.accent}`
+                      : "text-slate-500 hover:text-slate-300"
+                  }`}
+                >
+                  <span className="text-lg">{p.emoji}</span>
+                  <span className="hidden lg:inline">{p.type}</span>
+                  <span className="text-xs opacity-60">{p.number}</span>
+                </motion.button>
+              </ElectricBorder>
             );
           })}
         </div>
@@ -215,102 +234,142 @@ export default function Projects() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.4 }}
-            className={`card-glass rounded-2xl border ${c.activeBorder} ${c.glow} overflow-hidden`}
           >
-            <div className="p-8 md:p-12">
-              <div className="grid md:grid-cols-2 gap-12">
-                {/* Left */}
-                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="text-5xl">{current.emoji}</span>
-                    <div>
-                      <span
-                        className={`font-mono text-xs ${c.accent} tracking-widest uppercase`}
-                      >
+            <ElectricBorder
+              color={current.hexColor}
+              speed={1}
+              chaos={0.12}
+              borderRadius={16}
+              style={{ width: "100%" }}
+            >
+              <div className="card-glass rounded-2xl p-8 md:p-12">
+                <div className="grid md:grid-cols-2 gap-12">
+
+                  {/* Left */}
+                  <div>
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-5xl">{current.emoji}</span>
+                      <span className={`font-mono text-xs ${c.accent} tracking-widest uppercase`}>
                         {current.type} · {current.year}
                       </span>
                     </div>
-                  </div>
 
-                  <h3 className="font-display text-4xl md:text-5xl text-white leading-tight mb-6">
-                    {current.title}
-                  </h3>
+                    <h3 className="font-display text-4xl md:text-5xl text-white leading-tight mb-6">
+                      {current.title}
+                    </h3>
 
-                  <p className="font-body text-slate-400 text-lg leading-relaxed mb-8">
-                    {current.description}
-                  </p>
+                    <p className="font-body text-slate-400 text-lg leading-relaxed mb-8">
+                      {current.description}
+                    </p>
 
-                  {/* Tech stack */}
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {current.tech.map((t) => (
-                      <span
-                        key={t}
-                        className={`px-3 py-1.5 border rounded-sm font-mono text-xs ${c.tag}`}
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Project counter */}
-                  <div className="flex items-center gap-3">
-                    <span className={`font-mono text-xs ${c.accent} opacity-60`}>
-                      {activeProject + 1} / {projects.length}
-                    </span>
-                    <div className="flex gap-1.5">
-                      {projects.map((_, i) => (
-                        <button
-                          key={i}
-                          onClick={() => setActiveProject(i)}
-                          className={`h-1 rounded-full transition-all duration-300 ${
-                            i === activeProject
-                              ? `w-6 ${c.dot}`
-                              : "w-2 bg-slate-700 hover:bg-slate-500"
-                          }`}
-                        />
+                    {/* Tech stack */}
+                    <div className="flex flex-wrap gap-2 mb-8">
+                      {current.tech.map((t) => (
+                        <span
+                          key={t}
+                          className={`px-3 py-1.5 border rounded-sm font-mono text-xs ${c.tag}`}
+                        >
+                          {t}
+                        </span>
                       ))}
                     </div>
-                  </div>
-                </div>
 
-                {/* Right — highlights */}
-                <div>
-                  <p
-                    className={`font-mono text-xs ${c.accent} tracking-widest uppercase mb-6`}
-                  >
-                    Key Features
-                  </p>
-                  <div className="space-y-4">
-                    {current.highlights.map((h, i) => (
-                      <motion.div
-                        key={h}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.1 }}
-                        className="flex items-center gap-4 p-4 rounded-lg bg-white/[0.02] border border-white/[0.04] hover:border-white/10 transition-colors"
+                    {/* Buttons row */}
+                    <div className="flex flex-wrap items-center gap-4 mb-6">
+                      {/* Live Demo button — only shows if liveUrl exists */}
+                      {current.liveUrl && (
+                        <motion.a
+                          href={current.liveUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          whileHover={{
+                            scale: 1.05,
+                            boxShadow: `0 0 25px rgba(${c.rgb},0.5)`,
+                          }}
+                          whileTap={{ scale: 0.97 }}
+                          className={`flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-transparent to-transparent border ${c.border} ${c.accent} font-mono text-xs tracking-widest uppercase rounded-sm hover:${c.bg} transition-all duration-300`}
+                          style={{
+                            background: `linear-gradient(135deg, rgba(${c.rgb},0.15), rgba(${c.rgb},0.05))`,
+                          }}
+                        >
+                          <span className="relative flex h-2 w-2">
+                            <span
+                              className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75`}
+                              style={{ backgroundColor: `rgba(${c.rgb},0.8)` }}
+                            />
+                            <span
+                              className="relative inline-flex rounded-full h-2 w-2"
+                              style={{ backgroundColor: `rgba(${c.rgb},1)` }}
+                            />
+                          </span>
+                          Live Demo
+                          <span>↗</span>
+                        </motion.a>
+                      )}
+
+                      {/* Coming Soon badge for no liveUrl */}
+                      {!current.liveUrl && (
+                        <span className="flex items-center gap-2 px-6 py-3 border border-slate-700/50 text-slate-600 font-mono text-xs tracking-widest uppercase rounded-sm">
+                          <span>🔒</span> Private Project
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Project counter dots */}
+                    <div className="flex items-center gap-3">
+                      <span className={`font-mono text-xs ${c.accent} opacity-60`}>
+                        {activeProject + 1} / {projects.length}
+                      </span>
+                      <div className="flex gap-1.5">
+                        {projects.map((_, i) => (
+                          <button
+                            key={i}
+                            onClick={() => setActiveProject(i)}
+                            className={`h-1 rounded-full transition-all duration-300 ${
+                              i === activeProject
+                                ? `w-6 ${c.dot}`
+                                : "w-2 bg-slate-700 hover:bg-slate-500"
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right — highlights */}
+                  <div>
+                    <p className={`font-mono text-xs ${c.accent} tracking-widest uppercase mb-6`}>
+                      Key Features
+                    </p>
+                    <div className="space-y-3">
+                      {current.highlights.map((h, i) => (
+                        <motion.div
+                          key={h}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.1 }}
+                          className="flex items-center gap-4 p-4 rounded-lg bg-white/[0.02] border border-white/[0.05] hover:border-white/10 transition-colors"
+                        >
+                          <div className={`w-2 h-2 rounded-full ${c.dot} flex-shrink-0`} />
+                          <span className="font-body text-slate-300">{h}</span>
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    {/* Big number decoration */}
+                    <div className="mt-8 flex items-end justify-end">
+                      <span
+                        className="font-display text-[8rem] leading-none text-transparent select-none"
+                        style={{ WebkitTextStroke: `1px rgba(${c.rgb},0.08)` }}
                       >
-                        <div
-                          className={`w-2 h-2 rounded-full ${c.dot} flex-shrink-0`}
-                        />
-                        <span className="font-body text-slate-300">{h}</span>
-                      </motion.div>
-                    ))}
+                        {current.number}
+                      </span>
+                    </div>
                   </div>
 
-                  {/* Big number decoration */}
-                  <div className="mt-8 flex items-end justify-end">
-                    <span
-                      className="font-display text-[8rem] leading-none text-transparent select-none"
-                      style={{
-                        WebkitTextStroke: `1px rgba(${c.rgb},0.08)`,
-                      }}
-                    >
-                      {current.number}
-                    </span>
-                  </div>
                 </div>
               </div>
-            </div>
+            </ElectricBorder>
           </motion.div>
         </AnimatePresence>
       </div>
