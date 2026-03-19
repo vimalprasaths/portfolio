@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const stats = [
-  { value: "1+", label: "Years Experience" },
+  { value: "3+", label: "months" },
   { value: "3+", label: "Projects Built" },
   { value: "2", label: "Certifications" },
   { value: "6+", label: "Tech Stacks" },
