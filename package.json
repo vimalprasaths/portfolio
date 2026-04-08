@@ -1,5 +1,10 @@
 {
   "name": "vimal-portfolio",
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  "version": "1.0.0",
+>>>>>>> 7623fc5 (updated index.html with chatbot)
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -8,6 +13,29 @@
     "build":   "vite build",
     "preview": "vite preview"
   },
+<<<<<<< HEAD
+=======
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+=======
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev":     "vite",
+    "build":   "vite build",
+    "preview": "vite preview"
+  },
+>>>>>>> 7623fc5 (updated index.html with chatbot)
   "dependencies": {
     "react":     "^18.3.1",
     "react-dom": "^18.3.1"
@@ -15,5 +43,9 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
     "vite":                 "^5.4.2"
+<<<<<<< HEAD
+=======
+>>>>>>> 5acbca0 (portfolio with chatbot)
+>>>>>>> 7623fc5 (updated index.html with chatbot)
   }
 }
