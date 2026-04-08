@@ -1,0 +1,103 @@
+.vp-timeline {
+  padding-left: 32px;
+  position: relative;
+}
+
+.vp-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent), var(--cyan), transparent);
+}
+
+.vp-tl-item {
+  position: relative;
+  padding: 28px 32px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-bottom: 20px;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+}
+
+.vp-tl-item::before {
+  content: '';
+  position: absolute;
+  left: -41px; top: 38px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 14px var(--accent);
+}
+
+.vp-tl-item::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(124,58,237,.05), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+  pointer-events: none;
+}
+
+.vp-tl-item:hover {
+  transform: translateX(8px);
+  border-color: rgba(124, 58, 237, 0.4);
+  box-shadow: -5px 0 28px var(--glow), 0 10px 40px rgba(0,0,0,.3);
+}
+
+.vp-tl-item:hover::after { opacity: 1; }
+
+.vp-tl-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 5px;
+}
+
+.vp-tl-name {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.vp-tl-date {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--cyan);
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+.vp-tl-company {
+  color: var(--accent);
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.vp-tl-ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vp-tl-li {
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.65;
+  padding-left: 20px;
+  position: relative;
+}
+
+.vp-tl-li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--cyan);
+}

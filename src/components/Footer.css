@@ -1,0 +1,28 @@
+.vp-footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-family: var(--font-mono);
+  position: relative;
+  z-index: 1;
+}
+
+.vp-footer-brand {
+  background: linear-gradient(135deg, var(--accent), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .vp-footer {
+    padding: 22px;
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+  }
+}
